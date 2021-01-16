@@ -9,7 +9,12 @@ repos:
     -   id: end-of-file-fixer
     -   id: check-yaml
     -   id: check-added-large-files
-repos:
+
+-   repo: https://github.com/psf/black
+    rev: stable
+    hooks:
+    -   id: black
+
 - repo: git://github.com/antonbabenko/pre-commit-terraform
   rev: v1.43.0 # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
   hooks:
