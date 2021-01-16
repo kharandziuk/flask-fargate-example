@@ -10,6 +10,7 @@ import requests
 import urllib.parse
 
 from dotenv import load_dotenv
+
 load_dotenv()
 
 
@@ -20,8 +21,11 @@ APP_PORT = os.environ.get("APP_PORT", 8000)
 
 @app.route("/")
 def index():
-    return render_template('main.html', title='sample app',)
+    return render_template(
+        "main.html",
+        title="sample app",
+    )
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=APP_PORT)
+    app.run(host="0.0.0.0", port=APP_PORT)
