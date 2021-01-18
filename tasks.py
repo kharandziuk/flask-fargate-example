@@ -2,6 +2,7 @@ from invoke import task
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import json
 
 load_dotenv()
 
@@ -72,6 +73,19 @@ def build(c):
 
 @task
 def force_deployment(c):
+    result = c.run(
+        "aws ecs list-tasks --cluster default --region $AWS_REGION  --service-name test-api | jq '.taskArns'"
+    ).stdout.strip()
+    for servide_id in json.loads(result):
+        c.run(f"aws ecs stop-task --region $AWS_REGION --task {servide_id}")
     c.run(
-        "aws ecs update-service --region=$AWS_REGION --cluster default  --service example --force-new-deployment"
+        "aws ecs update-service --region=$AWS_REGION --cluster default  --service test-api --force-new-deployment"
     )
+
+
+@task
+def together(c):
+    apply_repos(c)
+    build(c)
+    force_deployment(c)
+    apply_infra(c)
