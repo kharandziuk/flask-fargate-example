@@ -6,8 +6,6 @@ import logging
 import os
 
 from flask import Flask, render_template, request, redirect
-import requests
-import urllib.parse
 
 from dotenv import load_dotenv
 
@@ -16,7 +14,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
-APP_PORT = os.environ.get("APP_PORT", 8000)
+APP_PORT = os.environ.get("APP_PORT", 80)
 
 
 @app.route("/")
