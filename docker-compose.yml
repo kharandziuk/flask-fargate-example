@@ -6,7 +6,9 @@ services:
     volumes:
       - ./backend/:/code/
     ports:
-      - $APP_PORT:80
+      - 8000:$APP_PORT
     command: ./entrypoint.sh
+    environment:
+      APP_PORT: 8000
     env_file:
       - .env
