@@ -83,9 +83,15 @@ def force_deployment(c):
     )
 
 
-@task
+@task(get_identity)
 def together(c):
     apply_repos(c)
     build(c)
     force_deployment(c)
     apply_infra(c)
+
+
+@task(get_identity)
+def destroy_all(c):
+    destroy_infra(c)
+    destroy_repos(c)
